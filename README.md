@@ -16,3 +16,14 @@ View the application using:
 
 http://localhost:3000/
 
+## Development Environment
+
+Same as Build Instructions, but also need to:
+
+* Install Visual Studio Code (VSC).
+
+* Install Google Chrome (for debugging with VSC).
+
+* Accept "workspace recommendations" in VSC to install required plugins.
+
+* Restart VSC after installing plugins, otherwise chrome debugger doesn't work.
