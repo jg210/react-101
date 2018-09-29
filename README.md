@@ -9,5 +9,6 @@ https://github.com/nodenv/node-build#installation
 ```
 nodenv install $(cat .node-version)
 npm install
+npm start
 ```
 
