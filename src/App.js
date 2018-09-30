@@ -17,7 +17,7 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">FHS ratings</h1>
+                    <h1 className="App-title">FSA Food Hygiene Ratings</h1>
                 </header>
                 <Authorities
                     url="http://api.ratings.food.gov.uk/Authorities/basic"

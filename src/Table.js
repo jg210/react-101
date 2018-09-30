@@ -10,8 +10,13 @@ export class Table extends Component {
     }
 
     render() {
-        if (this.state.scores === null) {
+        if (this.props.localAuthorityId === null) {
             return null;
+        }
+        if (this.state.scores === null) {
+            return (
+                <div>loading...</div>
+            );
         }
         return (
             <table className="Table">
@@ -62,7 +67,7 @@ export class Table extends Component {
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
         }
-        this.setState({ scores: [] });
+        this.setState({ scores: null });
         const url = `http://api.ratings.food.gov.uk/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId)}&pageSize=0`;
         fetch(url, {
             headers: {
