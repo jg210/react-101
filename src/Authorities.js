@@ -13,10 +13,17 @@ export class Authorities extends Component {
     return (
         <select>
             {this.state.localAuthorities.map(localAuthority =>
-                <option value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
+                <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
             )}}
         </select>
     );
+  }
+
+  parseJson(json) {
+    return json.authorities.map(authority => ({
+        name: authority.Name,
+        localAuthorityId: authority.LocalAuthorityId
+    }));
   }
 
   componentDidMount() {
@@ -26,7 +33,7 @@ export class Authorities extends Component {
           'x-api-version': 2
         }})
       .then(response => response.json())
-      .then(json => json.authorities.map(authority => ({ name: authority.Name, localAuthorityId: authority.LocalAuthorityId })))
+      .then(this.parseJson)
       .then(localAuthorities => this.setState({localAuthorities}));
   }
 
