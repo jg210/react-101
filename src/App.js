@@ -20,7 +20,6 @@ class App extends Component {
                     <h1 className="App-title">FSA Food Hygiene Ratings</h1>
                 </header>
                 <Authorities
-                    url="http://api.ratings.food.gov.uk/Authorities/basic"
                     onClick={this.handleLocalAuthorityClick}
                 />
                 <Table
