@@ -1,6 +1,11 @@
-import { extractLocalAuthorities, ratingsPercentages } from './FSA.js'
+import {
+    extractLocalAuthorities,
+    formatRating,
+    ratingsPercentages
+} from './FSA.js'
 import _ from 'lodash';
 
+// README.md explains how these json files were downloaded.
 const AUTHORITIES_JSON = require('../example_json/authorities.json');
 const ESTABLISHMENTS_JSON = require('../example_json/establishments_23.json');
 
@@ -32,13 +37,67 @@ function checkRatingPercentages(ratingPercentages, ratingsExpected, percentagesE
     expect(percentages.length).toEqual(percentagesExpected.length);
 }
 
-// TODO No establishments.
-// TODO One establishment.
-// TODO A few establishments.
+it('calculates expected percentages for local authority with no ratings', () => {
+    const ratingPercentages = ratingsPercentages({
+        "establishments": [
+        ]
+    });
+    checkRatingPercentages(ratingPercentages,
+        [],
+        []);
+});
+
+it('calculates expected percentages for local authority with one establishment', () => {
+    const ratingPercentages = ratingsPercentages({
+        "establishments": [
+            {
+                "RatingValue": "5",
+            }
+        ]
+    }); // Relevant part of json extracted from establishments_23.json with jq tool.
+    checkRatingPercentages(ratingPercentages,
+        ["5-star"],
+        [100.000]);
+});
+
+
+it('calculates expected percentages for local authority with one rating', () => {
+    const ratingPercentages = ratingsPercentages({
+        "establishments": [
+            {
+                "RatingValue": "5",
+            },
+            {
+                "RatingValue": "5",
+            },
+            {
+                "RatingValue": "5",
+            }
+        ]
+    });
+    checkRatingPercentages(ratingPercentages,
+        ["5-star"],
+        [100.000]);
+});
+
+it('calculates expected percentages for local authority with one rating', () => {
+    const ratingPercentages = ratingsPercentages({
+        "establishments": [
+            {
+                "RatingValue": "5",
+            },
+            {
+                "RatingValue": "3",
+            },
+        ]
+    });
+    checkRatingPercentages(ratingPercentages,
+        ["3-star", "5-star"],
+        [50.0, 50.0]);
+});
 
 it('calculates expected percentages for local authority id 23', () => {
     const ratingPercentages = ratingsPercentages(ESTABLISHMENTS_JSON);
-    expect(ratingPercentages.length).toEqual(8);
     checkRatingPercentages(ratingPercentages,
         [
             "0-star",
@@ -61,3 +120,20 @@ it('calculates expected percentages for local authority id 23', () => {
             6.696
         ]);
 });
+
+it('formats ratings properly', () => {
+    expect(formatRating("0")).toEqual("0-star");
+    expect(formatRating("1")).toEqual("1-star");
+    expect(formatRating("2")).toEqual("2-star");
+    expect(formatRating("3")).toEqual("3-star");
+    expect(formatRating("4")).toEqual("4-star");
+    expect(formatRating("5")).toEqual("5-star");
+    expect(formatRating("5")).toEqual("5-star");
+    expect(formatRating("foo")).toEqual("foo");
+    expect(formatRating("Awaiting Inspection")).toEqual("Awaiting Inspection");
+    expect(formatRating("AwaitingInspection")).toEqual("Awaiting Inspection");
+    expect(formatRating("Awaiting Publication")).toEqual("Awaiting Publication");
+    expect(formatRating("AwaitingPublication")).toEqual("Awaiting Publication");
+    expect(formatRating("Exempt")).toEqual("Exempt");
+});
+
