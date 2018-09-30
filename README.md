@@ -54,7 +54,7 @@ $ curl 'http://api.ratings.food.gov.uk/Establishments?localAuthorityId=23&pageSi
 
 The localAuthorityId in the URL is the LocalAuthorityId not the LocalAuthorityIdCode in Authorities json.
 
-These sound like they should be hygiene scores but are from 0-20:
+These look like they should be hygiene scores but are from 0-20:
 
 ```
 $ jq '.establishments[].scores.Hygiene' example_json/establishments_23.json | sort | uniq --count | sort -k2 -n
@@ -128,7 +128,7 @@ $ jq .establishments[].RatingValue example_json/establishments_23.json | sort | 
 
 The React app makes API requests from the browser. It is able to do this since the ratings server sets the "Access-Control-Allow-Origin: *" CORS header.
 
-Relying on this might not be a good idea. It would be better to implement a proxy in the server hosting the React application. An easy way to do this for development only would be:
+Relying on this might not be a good idea. It might be better to implement a proxy in the server hosting the React application. An easy way to do this for development only would be:
 
 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#configuring-the-proxy-manually
 

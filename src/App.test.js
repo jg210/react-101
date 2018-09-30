@@ -3,7 +3,7 @@
 // import App from './App';
 
 it('is run with correct node version', () => {
-  expect(process.versions.node).toBe("8.12.0");
+  expect(process.versions.node).toEqual("8.12.0");
 });
 
 // TODO fetch() returns nothing when run from jest?
