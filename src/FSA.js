@@ -28,6 +28,9 @@ export function formatRating(ratingValue) {
     if (ratingValue === "AwaitingInspection") {
         return "Awaiting Inspection";
     }
+    if (ratingValue === "AwaitingPublication") {
+        return "Awaiting Publication";
+    }
     if (/^[0-9]+$/.test(ratingValue)) {
         return `${ratingValue}-star`;
     }
