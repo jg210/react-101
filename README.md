@@ -57,7 +57,7 @@ The localAuthorityId in the URL is the LocalAuthorityId not the LocalAuthorityId
 These sound like they should be hygiene scores but are from 0-20:
 
 ```
-$ cat establishments_23.json | jq '.establishments[].scores.Hygiene' | sort | uniq --count | sort -k2 -n
+$ jq '.establishments[].scores.Hygiene' example_json/establishments_23.json | sort | uniq --count | sort -k2 -n
     121 0
      97 null
     577 5
@@ -69,7 +69,7 @@ $ cat establishments_23.json | jq '.establishments[].scores.Hygiene' | sort | un
 These look more plausible, but there are 6 not 5 levels:
 
 ```
-$ cat establishments_23.json | jq '.establishments[].RatingKey' | sort | uniq --count | sort -k2 -n
+$ jq '.establishments[].RatingKey' example_json/establishments_23.json | sort | uniq --count | sort -k2 -n
      12 "fhrs_1_en-gb"
     160 "fhrs_4_en-gb"
      18 "fhrs_2_en-gb"
@@ -84,7 +84,7 @@ This API gives mapping from ratingKey (like fhrs_1_en-gb) to ratingName (e.g. 1)
 
 ```
 $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" > ratings.json
-$ cat ratings.json | jq .ratings[].ratingName
+$ jq .ratings[].ratingName example_json/ratings.json
 "5"
 "4"
 "3"
@@ -108,6 +108,20 @@ $ cat ratings.json | jq .ratings[].ratingKey
 "fhis_awaiting_publication_en-gb"
 "fhis_awaiting_inspection_en-gb"
 "fhis_exempt_en-gb"
+```
+
+Fortunately, this is denormalized into the RatingValue field:
+
+```
+$ jq .establishments[].RatingValue example_json/establishments_23.json | sort | uniq --count
+      2 "0"
+     12 "1"
+     18 "2"
+     75 "3"
+    160 "4"
+    577 "5"
+      6 "AwaitingInspection"
+     61 "Exempt"
 ```
 
 ## Same Origin Policy and CORS
