@@ -39,7 +39,10 @@ export class Table extends Component {
     const scoreCounts = new Map();
     let count = 0;
     json.establishments.forEach(establishment => {
-        const rating = establishment.RatingValue;
+        let rating = establishment.RatingValue;
+        if (rating === "AwaitingInspection") {
+            rating = "Awaiting Inspection";
+        }
         let oldCount = scoreCounts.get(rating);
         if (oldCount === undefined) {
             oldCount = 0;
