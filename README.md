@@ -30,6 +30,10 @@ Same as Build Instructions, but also need to:
 
 * Install React Developer Tools in Chrome.
 
+## Backlog
+
+There is a list of bugs/tasks in the TODO file in this repo.
+
 ## Analysis of API
 
 All HTTP requests are slow.
