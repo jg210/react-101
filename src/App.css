@@ -12,3 +12,21 @@
 .App-title {
   font-size: 1.5em;
 }
+
+.Authority {
+  margin: 2em;
+}
+
+.Table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+.Table td {
+  text-align: left;
+}
+
+.Table table, th, td {
+  border: 1px solid black;
+}

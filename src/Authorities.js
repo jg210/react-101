@@ -11,7 +11,7 @@ export class Authorities extends Component {
 
   render() {
     return (
-        <select onChange={this.handleChange.bind(this)}>
+        <select onChange={this.handleChange.bind(this)} className="Authority">
             {this.state.localAuthorities.map(localAuthority =>
                 <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
             )}}
