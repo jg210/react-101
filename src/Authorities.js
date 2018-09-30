@@ -11,7 +11,7 @@ export class Authorities extends Component {
 
   render() {
     return (
-        <select onChange={this.handleChange.bind(this)} className="Authority">
+        <select onClick={this.handleClick.bind(this)} className="Authority">
             {this.state.localAuthorities.map(localAuthority =>
                 <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
             )}}
@@ -19,8 +19,11 @@ export class Authorities extends Component {
     );
   }
 
-  handleChange(event) {
-    this.props.onSelect(event.target.value);
+  handleClick(event) {
+    const target = event.target;
+    if (target) {
+        this.props.onClick(event.target.value);
+    }
   }
 
   // TODO Move to new file.

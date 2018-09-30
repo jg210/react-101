@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
         localAuthorityId: null
     }
-    this.handleLocalAuthoritySelection = this.handleLocalAuthoritySelection.bind(this);
+    this.handleLocalAuthorityClick = this.handleLocalAuthorityClick.bind(this);
   }
 
   render() {
@@ -21,7 +21,7 @@ class App extends Component {
         </header>
         <Authorities
           url="http://api.ratings.food.gov.uk/Authorities/basic"
-          onSelect={this.handleLocalAuthoritySelection}
+          onClick={this.handleLocalAuthorityClick}
         />
         <Table
           localAuthorityId={this.state.localAuthorityId}
@@ -30,7 +30,7 @@ class App extends Component {
     );
   }
 
-  handleLocalAuthoritySelection(localAuthorityId) {
+  handleLocalAuthorityClick(localAuthorityId) {
     this.setState({localAuthorityId});
   }
 
