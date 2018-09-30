@@ -5,6 +5,7 @@ import {
     fetchEstablishmentsJson
 } from './FSA.js'
 
+// Table showing percentage of establishments with each rating.
 export class Table extends Component {
 
     constructor(props) {
