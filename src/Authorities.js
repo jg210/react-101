@@ -11,7 +11,7 @@ export class Authorities extends Component {
 
   render() {
     return (
-        <select>
+        <select onChange={this.handleChange.bind(this)}>
             {this.state.localAuthorities.map(localAuthority =>
                 <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
             )}}
@@ -19,6 +19,11 @@ export class Authorities extends Component {
     );
   }
 
+  handleChange(event) {
+    this.props.onSelect(event.target.value);
+  }
+
+  // TODO Move to new file.
   parseJson(json) {
     return json.authorities.map(authority => ({
         name: authority.Name,
@@ -38,5 +43,3 @@ export class Authorities extends Component {
   }
 
 }
-
-
