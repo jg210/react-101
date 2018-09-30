@@ -11,12 +11,20 @@ export class Authorities extends Component {
     }
 
     render() {
-        return (
-            <select onClick={this.handleClick.bind(this)} className="Authority">
+        let dropdown = null;
+        if (this.state.localAuthorities.length === 0) {
+            dropdown = <div>loading...</div>
+        } else {
+            dropdown = <select onClick={this.handleClick.bind(this)}>
                 {this.state.localAuthorities.map(localAuthority =>
                     <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
-                )}}
-        </select>
+                )}
+            </select>
+        }
+        return (
+            <div className="Authority">
+                {dropdown}
+            </div>
         );
     }
 
