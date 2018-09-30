@@ -20,38 +20,44 @@ it('extracts unique local authority ids from json', () => {
     expect(localAuthorityIds.size).toEqual(localAuthorities.length);
 });
 
-it('calculates expected percentages for local authority id 23', () => {
-    const rating_percentages = ratingsPercentages(ESTABLISHMENTS_JSON);
-    expect(rating_percentages.length).toEqual(8);
-    const ratings = rating_percentages.map(rating_percentage => rating_percentage.rating);
-    expect(ratings).toEqual([
-        "0-star",
-        "1-star",
-        "2-star",
-        "3-star",
-        "4-star",
-        "5-star",
-        "Awaiting Inspection",
-        "Exempt"
-    ]);
-    const percentages = rating_percentages.map(rating_percentage => rating_percentage.percentage);
-    const percentagesExpected = [
-        0.220,
-        1.317,
-        1.976,
-        8.233,
-        17.563,
-        63.337,
-        0.659,
-        6.696
-    ]; // TOOD Are these correct?
+function checkRatingPercentages(ratingPercentages, ratingsExpected, percentagesExpected) {
+    expect(ratingsExpected.length).toEqual(percentagesExpected.length);
+    const ratings = ratingPercentages.map(rating_percentage => rating_percentage.rating);
+    expect(ratings).toEqual(ratingsExpected);
+    const percentages = ratingPercentages.map(rating_percentage => rating_percentage.percentage);
     _.zip(percentages, percentagesExpected).forEach(pair => {
         let [percentage, percentageExpected] = pair;
         expect(percentage).toBeCloseTo(percentageExpected, /*numDigits*/3);
     });
     expect(percentages.length).toEqual(percentagesExpected.length);
-});
+}
 
 // TODO No establishments.
 // TODO One establishment.
 // TODO A few establishments.
+
+it('calculates expected percentages for local authority id 23', () => {
+    const ratingPercentages = ratingsPercentages(ESTABLISHMENTS_JSON);
+    expect(ratingPercentages.length).toEqual(8);
+    checkRatingPercentages(ratingPercentages,
+        [
+            "0-star",
+            "1-star",
+            "2-star",
+            "3-star",
+            "4-star",
+            "5-star",
+            "Awaiting Inspection",
+            "Exempt"
+        ],
+        [
+            0.220,
+            1.317,
+            1.976,
+            8.233,
+            17.563,
+            63.337,
+            0.659,
+            6.696
+        ]);
+});
