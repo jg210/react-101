@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import { ratingsPercentages } from './FSA.js'
+import {
+    ratingsPercentages,
+    fetchEstablishmentsJson
+} from './FSA.js'
 
 export class Table extends Component {
 
@@ -49,12 +52,7 @@ export class Table extends Component {
             return;
         }
         this.setState({ scores: null });
-        const url = `http://api.ratings.food.gov.uk/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId)}&pageSize=0`;
-        fetch(url, {
-            headers: {
-                'Accept': 'application/json',
-                'x-api-version': 2
-            }})
+        fetchEstablishmentsJson(localAuthorityId)
             .then(response => response.json())
             .then(ratingsPercentages)
             .then(scores => this.setState({ scores }));

@@ -1,3 +1,23 @@
+const RATINGS_URL = "http://api.ratings.food.gov.uk";
+
+function fetchFromAPI(url) {
+    return fetch(url, {
+        headers: {
+            'Accept': 'application/json',
+            'x-api-version': 2
+        }
+    });
+}
+
+export function fetchLocalAuthoritiesJson() {
+    return fetchFromAPI(`${RATINGS_URL}/Authorities/basic`);
+}
+
+export function fetchEstablishmentsJson(localAuthorityId) {
+    const url = `${RATINGS_URL}/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId)}&pageSize=0`;
+    return fetchFromAPI(url);
+}
+
 // Return unordered Array of {name, localAuthorityId} objects.
 export function extractLocalAuthorities(json) {
     return json.authorities.map(authority => ({

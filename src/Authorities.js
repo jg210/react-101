@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { extractLocalAuthorities } from './FSA.js';
+import { extractLocalAuthorities, fetchLocalAuthoritiesJson } from './FSA.js';
 
 export class Authorities extends Component {
 
@@ -36,12 +36,7 @@ export class Authorities extends Component {
     }
 
     componentDidMount() {
-        fetch(this.props.url, {
-            headers: {
-                'Accept': 'application/json',
-                'x-api-version': 2
-            }
-        })
+        fetchLocalAuthoritiesJson()
             .then(response => response.json())
             .then(extractLocalAuthorities)
             .then(localAuthorities => this.setState({ localAuthorities }));
