@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { ratingsPercentages } from './FSA.js'
+
 export class Table extends Component {
 
     constructor(props) {
@@ -38,27 +40,6 @@ export class Table extends Component {
         );
     }
 
-    // TODO Move to new file.
-    // Parse json and return order Array of [ rating, fraction ] tuples.
-    parseJson(json) {
-        const scoreCounts = new Map();
-        let count = 0;
-        json.establishments.forEach(establishment => {
-            let rating = establishment.RatingValue;
-            if (rating === "AwaitingInspection") {
-                rating = "Awaiting Inspection";
-            }
-            let oldCount = scoreCounts.get(rating);
-            if (oldCount === undefined) {
-                oldCount = 0;
-            }
-            scoreCounts.set(rating, oldCount + 1);
-            count++;
-        });
-        const ratings = Array.from(scoreCounts.keys()).sort();
-        return ratings.map(rating => ({ rating: rating, percentage: 100 * scoreCounts.get(rating) / count }));
-    }
-
     componentDidUpdate(prevProps) {
         const localAuthorityId = this.props.localAuthorityId;
         if (localAuthorityId === null) {
@@ -73,10 +54,9 @@ export class Table extends Component {
             headers: {
                 'Accept': 'application/json',
                 'x-api-version': 2
-            }
-        })
+            }})
             .then(response => response.json())
-            .then(this.parseJson)
+            .then(ratingsPercentages)
             .then(scores => this.setState({ scores }));
     }
 

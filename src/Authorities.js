@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { extractLocalAuthorities } from './FSA.js';
 
 export class Authorities extends Component {
 
@@ -26,14 +27,6 @@ export class Authorities extends Component {
         }
     }
 
-    // TODO Move to new file.
-    parseJson(json) {
-        return json.authorities.map(authority => ({
-            name: authority.Name,
-            localAuthorityId: authority.LocalAuthorityId
-        }));
-    }
-
     componentDidMount() {
         fetch(this.props.url, {
             headers: {
@@ -42,7 +35,7 @@ export class Authorities extends Component {
             }
         })
             .then(response => response.json())
-            .then(this.parseJson)
+            .then(extractLocalAuthorities)
             .then(localAuthorities => this.setState({ localAuthorities }));
     }
 
