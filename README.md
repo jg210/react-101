@@ -109,3 +109,33 @@ $ cat ratings.json | jq .ratings[].ratingKey
 "fhis_awaiting_inspection_en-gb"
 "fhis_exempt_en-gb"
 ```
+
+## Same Origin Policy and CORS
+
+The React app makes API requests from the browser. It is able to do this since the ratings server sets the "Access-Control-Allow-Origin: *" CORS header.
+
+Relying on this might not be a good idea. It would be better to implement a proxy in the server hosting the React application. An easy way to do this for development only would be:
+
+https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#configuring-the-proxy-manually
+
+```
+$ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" --verbose > /dev/null 
+> User-Agent: curl/7.35.0
+> Host: api.ratings.food.gov.uk
+> x-api-version: 2
+> accept: text/json
+> 
+< HTTP/1.1 200 OK
+< Cache-Control: public, max-age=600
+< Content-Type: text/json; charset=utf-8
+* Server Microsoft-IIS/8.5 is not blacklisted
+< Server: Microsoft-IIS/8.5
+< X-Version: v2.0
+< X-Provider: Food Standards Agency
+< Access-Control-Allow-Origin: *
+< Access-Control-Allow-Methods: GET, POST
+< Access-Control-Allow-Headers: Authorization, ApiKey, X-Api-Version
+< Set-Cookie: ApplicationGatewayAffinity=c436113542c9b22bfefbedeae95a339e13778ca898918f178726c359d131e0a1;Path=/;Domain=api.ratings.food.gov.uk
+< Date: Sun, 30 Sep 2018 10:00:09 GMT
+< Content-Length: 2333
+```
