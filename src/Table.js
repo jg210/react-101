@@ -5,14 +5,16 @@ import {
     fetchEstablishmentsJson
 } from './FSA.js'
 
+const LOADING_STATE = {
+    scores: null
+}
+
 // Table showing percentage of establishments with each rating.
 export class Table extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            scores: null
-        }
+        this.state = {...LOADING_STATE};
     }
 
     render() {
@@ -49,7 +51,7 @@ export class Table extends Component {
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
         }
-        this.setState({ scores: null });
+        this.setState({...LOADING_STATE});
         if (localAuthorityId === null) {
             return;
         }
