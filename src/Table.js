@@ -46,13 +46,13 @@ export class Table extends Component {
 
     componentDidUpdate(prevProps) {
         const localAuthorityId = this.props.localAuthorityId;
-        if (localAuthorityId === null) {
-            return;
-        }
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
         }
         this.setState({ scores: null });
+        if (localAuthorityId === null) {
+            return;
+        }
         fetchEstablishmentsJson(localAuthorityId)
             .then(response => response.json())
             .then(ratingsPercentages)
