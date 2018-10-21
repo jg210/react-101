@@ -56,7 +56,6 @@ export class Table extends Component {
             return;
         }
         fetchEstablishmentsJson(localAuthorityId)
-            .then(response => response.json())
             .then(ratingsPercentages)
             .then(scores => this.setState({ scores }));
     }

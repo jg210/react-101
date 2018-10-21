@@ -1,13 +1,15 @@
+import axios from 'axios';
+
 const RATINGS_URL = "http://api.ratings.food.gov.uk";
 
 // http://api.ratings.food.gov.uk/help
 function fetchFromAPI(url) {
-    return fetch(url, {
+    return axios.get(url, {
         headers: {
             'Accept': 'application/json',
             'x-api-version': 2
         }
-    });
+    }).then(response => response.data);
 }
 
 // http://api.ratings.food.gov.uk/Help/Api/GET-Authorities-basic

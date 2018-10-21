@@ -41,7 +41,6 @@ export class Authorities extends Component {
 
     componentDidMount() {
         fetchLocalAuthoritiesJson()
-            .then(response => response.json())
             .then(extractLocalAuthorities)
             .then(localAuthorities => this.setState({ localAuthorities }));
     }
