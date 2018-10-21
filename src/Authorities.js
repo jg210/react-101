@@ -10,13 +10,13 @@ export class Authorities extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            localAuthorities: []
+            localAuthorities: null
         }
     }
 
     render() {
         let dropdown = null;
-        if (this.state.localAuthorities.length === 0) {
+        if (this.state.localAuthorities === null) {
             dropdown = <div>loading...</div>
         } else {
             dropdown = <select onClick={this.handleClick.bind(this)}>
