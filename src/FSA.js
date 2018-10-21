@@ -3,13 +3,17 @@ import axios from 'axios';
 const RATINGS_URL = "http://api.ratings.food.gov.uk";
 
 // http://api.ratings.food.gov.uk/help
-function fetchFromAPI(url) {
-    return axios.get(url, {
+function fetchFromAPI(url, cancelTokenSource = null) {
+    const config = {
         headers: {
             'Accept': 'application/json',
             'x-api-version': 2
         }
-    }).then(response => response.data);
+    };
+    if (!(cancelTokenSource === null)) {
+        config.cancelToken = cancelTokenSource.token;
+    }
+    return axios.get(url, config).then(response => response.data);
 }
 
 // http://api.ratings.food.gov.uk/Help/Api/GET-Authorities-basic
@@ -18,9 +22,9 @@ export function fetchLocalAuthoritiesJson() {
 }
 
 // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
-export function fetchEstablishmentsJson(localAuthorityId) {
+export function fetchEstablishmentsJson(localAuthorityId, cancelTokenSource) {
     const url = `${RATINGS_URL}/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId)}&pageSize=0`;
-    return fetchFromAPI(url);
+    return fetchFromAPI(url, cancelTokenSource);
 }
 
 // Return unordered Array of {name, localAuthorityId} objects.

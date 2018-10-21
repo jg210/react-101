@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import React, { Component } from 'react';
 
 import {
@@ -15,6 +17,7 @@ export class Table extends Component {
     constructor(props) {
         super(props);
         this.state = {...LOADING_STATE};
+        this.cancelTokenSource = null;
     }
 
     render() {
@@ -51,13 +54,20 @@ export class Table extends Component {
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
         }
+        if (!(this.cancelTokenSource === null)) {
+            this.cancelTokenSource.cancel();
+        }
         this.setState({...LOADING_STATE});
         if (localAuthorityId === null) {
             return;
         }
-        fetchEstablishmentsJson(localAuthorityId)
+        this.cancelTokenSource = axios.CancelToken.source()
+        fetchEstablishmentsJson(localAuthorityId, this.cancelTokenSource)
             .then(ratingsPercentages)
-            .then(scores => this.setState({ scores }));
+            .then(scores => {
+                this.setState({ scores });
+                this.cancelTokenSource = null;
+            });
     }
 
 }
