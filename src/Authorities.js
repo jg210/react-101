@@ -20,8 +20,8 @@ export class Authorities extends Component {
             dropdown = <div>loading...</div>
         } else {
             dropdown = <select onClick={this.handleClick.bind(this)}>
-                {this.state.localAuthorities.map(localAuthority =>
-                    <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
+                {this.state.localAuthorities.map((localAuthority, i) =>
+                    <option key={i} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
                 )}
             </select>
         }

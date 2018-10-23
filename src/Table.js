@@ -38,8 +38,8 @@ export class Table extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.scores.map(score => (
-                        <tr key={score.rating}>
+                    {this.state.scores.map((score, i) => (
+                        <tr key={i}>
                             <td>{score.rating}</td>
                             <td>{Math.round(score.percentage)}%</td>
                         </tr>
