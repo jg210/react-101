@@ -19,7 +19,7 @@ export class Authorities extends Component {
         if (this.state.localAuthorities === null) {
             dropdown = <div>loading...</div>
         } else {
-            dropdown = <select onClick={this.handleClick.bind(this)} onChange={this.handleClick.bind(this)}>
+            dropdown = <select onClick={this.handleClick.bind(this)}>
                 {this.state.localAuthorities.map(localAuthority =>
                     <option key={localAuthority.localAuthorityId} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
                 )}
