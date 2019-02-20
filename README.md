@@ -41,6 +41,8 @@ Same as Build Instructions, but also need to:
 
 ## Analysis of API
 
+This app uses this API: http://api.ratings.food.gov.uk/help.
+
 All HTTP requests are slow. The API is http only.
 
 This gives a list of Authorities:
