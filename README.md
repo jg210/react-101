@@ -1,7 +1,8 @@
+Learning [React](https://reactjs.org/). This app uses react state and props and makes some simple requests to a third-party REST API. There's no flow/typescript type checking or redux etc.
+
 ## Development Build Instructions
 
-Install nodenv and node-build (or use any other way to put correct
-version of node on PATH):
+Install nodenv and node-build (or use any other way to put correct version of node on PATH):
 
 * https://github.com/nodenv/nodenv#installation
 * https://github.com/nodenv/node-build#installation
@@ -38,13 +39,9 @@ Same as Build Instructions, but also need to:
 
 * Install React Developer Tools in Chrome.
 
-## Backlog
-
-There is a list of bugs/tasks in the TODO file in this repo.
-
 ## Analysis of API
 
-All HTTP requests are slow.
+All HTTP requests are slow. The API is http only.
 
 This gives a list of Authorities:
 
@@ -138,7 +135,7 @@ $ jq .establishments[].RatingValue example_json/establishments_23.json | sort | 
 
 ## Same Origin Policy and CORS
 
-The React app makes API requests from the browser. It is able to do this since the ratings server sets the "Access-Control-Allow-Origin: *" CORS header.
+The app makes API requests from the browser. It is able to do this since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header.
 
 Relying on this might not be a good idea. It might be better to implement a proxy in the server hosting the React application. An easy way to do this for development only would be:
 
