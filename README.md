@@ -1,4 +1,4 @@
-## Build Instructions
+## Development Build Instructions
 
 Install nodenv and node-build (or use any other way to put correct
 version of node on PATH):
@@ -15,6 +15,14 @@ npm start
 View the application using:
 
 http://localhost:3000/
+
+# Release Build Instructions
+
+As above, but instead of running "npm start", run:
+
+```
+npm run build
+```
 
 ## Development Environment
 
