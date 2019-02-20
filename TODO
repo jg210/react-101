@@ -1,0 +1,41 @@
+* Push to github.
+
+* Add travis config.
+
+* Automate tests.
+
+* Publish.
+  - can only host via http since app connects to http-only FSA API.
+  => can't use github pages.
+  - https certificate
+  - create proxy for S3 buckets and FHS
+    - rate limiting?
+  - config travis to publish to S3
+    - publish files in dependency order
+  - add link to README.md
+  
+* Use https://fb.me/react-error-boundaries to mask back traces.
+
+* Failed-connection handling.
+
+* Verify json metadata in case get paged data.
+  - check meta.totalPages is 1.
+  - check meta.returncode is OK.
+
+* Download data using paged APIs, to prevent truncation.
+
+* Local Authority could be removed while app running.
+
+* Improve visual design.
+
+* Localization.
+
+* TypeScript/flow/PropTypes.
+
+* jest snapshot tests?
+
+* Automated browser tests.
+
+* Test for too many local authorities.
+
+* A way to refresh list of local authorities without refreshing whole page?
