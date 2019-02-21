@@ -6,6 +6,9 @@
 # node
 node_modules
 
+# jest
+coverage
+
 # react
 build
 
