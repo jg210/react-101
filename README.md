@@ -1,5 +1,7 @@
 Learning [React](https://reactjs.org/). This app uses react state and props and makes some simple requests to a third-party REST API. There's no flow/typescript type checking or redux etc.
 
+[![Build Status](https://travis-ci.com/jg210/react-101.svg?branch=master)
+
 ## Development Build Instructions
 
 Install nodenv and node-build (or use any other way to put correct version of node on PATH):
