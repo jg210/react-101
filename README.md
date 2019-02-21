@@ -1,6 +1,6 @@
 Learning [React](https://reactjs.org/). This app uses react state and props and makes some simple requests to a third-party REST API. There's no flow/typescript type checking or redux etc.
 
-[![Build Status](https://travis-ci.com/jg210/react-101.svg?branch=master)
+![Build Status](https://travis-ci.com/jg210/react-101.svg?branch=master)
 
 ## Development Build Instructions
 
@@ -143,7 +143,7 @@ The app makes API requests from the browser. It is able to do this since the rat
 
 Relying on this might not be a good idea. It might be better to implement a proxy in the server hosting the React application. An easy way to do this for development only would be:
 
-https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#configuring-the-proxy-manually
+https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development
 
 ```
 $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" --verbose > /dev/null 
