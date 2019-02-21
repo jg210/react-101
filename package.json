@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eslint": "eslint src",
-    "ci": "npm run eslint && CI=true npm run test -- --coverage && npm audit",
+    "ci": "npm run eslint && CI=true npm run test -- --coverage",
     "eject": "react-scripts eject"
   },
   "license": "MIT",

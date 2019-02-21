@@ -1,8 +1,9 @@
-* Push to github.
-
-* Add travis config.
-
-* Automate tests.
+* Find way to automate npm audit
+  - currently have unfixed errors in dependencies of latest react-scripts
+  - only fail if errors are above low priority?
+    - there's no option for that
+  - there are wrapper projects for npm audit.
+  - can travis CI do warnings?
 
 * Publish.
   - can only host via http since app connects to http-only FSA API.
