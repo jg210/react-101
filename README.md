@@ -123,7 +123,7 @@ $ cat ratings.json | jq .ratings[].ratingKey
 "fhis_exempt_en-gb"
 ```
 
-Fortunately, this is denormalized into the RatingValue field:
+Helpfully, this is denormalized into the RatingValue field:
 
 ```
 $ jq .establishments[].RatingValue example_json/establishments_23.json | sort | uniq --count
