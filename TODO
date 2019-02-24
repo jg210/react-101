@@ -1,5 +1,5 @@
 * Publish.
-  - with proxy server, can only host via http since app connects to http-only FSA API.
+  - without proxy server, can only host via http since app connects to http-only FSA API.
     => can't use github pages.
   - https certificate
   - create proxy for S3 buckets and FHS
