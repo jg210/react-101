@@ -139,11 +139,7 @@ $ jq .establishments[].RatingValue example_json/establishments_23.json | sort | 
 
 ## Same Origin Policy and CORS
 
-The app makes API requests from the browser. It is able to do this since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header.
-
-Relying on this might not be a good idea. It might be better to implement a proxy in the server hosting the React application. An easy way to do this for development only would be:
-
-https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development
+The app makes FHS API requests from the browser. It is able to do this since the ratings server sets the "Access-Control-Allow-Origin: *" [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) header:
 
 ```
 $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept: text/json" --verbose > /dev/null 
@@ -166,3 +162,7 @@ $ curl 'http://api.ratings.food.gov.uk/Ratings' -H "x-api-version: 2" -H "accept
 < Date: Sun, 30 Sep 2018 10:00:09 GMT
 < Content-Length: 2333
 ```
+
+The FHS API is http-only, so it is only possible for a browser to make requests to it if this app is also hosted using http. Hosting this app with https would require an https proxy to the FHS server to be set up. It's possible to set up a development-only proxy using:
+
+https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development
