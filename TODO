@@ -1,11 +1,16 @@
 * Publish.
-  - without proxy server, can only host via http since app connects to http-only FSA API.
-    => can't use github pages.
-  - https certificate
+  - without https->http proxy server, can only host via http since app connects to http-only FSA API.
+    => couldn't use github pages.
+  - setting up EC2 instance with https certificate
+    - AWS certificates are free, but only work with load balancers etc., which aren't free
+    - let's encrypt + certbot on EC2
+      - but would need own DNS record
+      - certificates are listed publicly
+        - github site will be public too though
   - create proxy for S3 buckets and FHS
     - rate limiting?
-  - config travis to publish to S3
-    - publish files in dependency order
+  - host static content with github pages and run proxy on EC2?
+    - proxy would have to use wildcard CORS header
   - add link to README.md
 
 * Find way to automate npm audit
