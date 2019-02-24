@@ -12,6 +12,8 @@
   - host static content with github pages and run proxy on EC2?
     - proxy would have to use wildcard CORS header
   - add link to README.md
+  - http redirection
+    - https://letsencrypt.org/docs/allow-port-80/
 
 * Find way to automate npm audit
   - currently have unfixed errors in dependencies of latest react-scripts
