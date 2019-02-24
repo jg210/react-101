@@ -1,10 +1,3 @@
-* Find way to automate npm audit
-  - currently have unfixed errors in dependencies of latest react-scripts
-  - only fail if errors are above low priority?
-    - there's no option for that
-  - there are wrapper projects for npm audit.
-  - can travis CI do warnings?
-
 * Publish.
   - with proxy server, can only host via http since app connects to http-only FSA API.
     => can't use github pages.
@@ -14,6 +7,13 @@
   - config travis to publish to S3
     - publish files in dependency order
   - add link to README.md
+
+* Find way to automate npm audit
+  - currently have unfixed errors in dependencies of latest react-scripts
+  - only fail if errors are above low priority?
+    - there's no option for that
+  - there are wrapper projects for npm audit.
+  - can travis CI do warnings?
   
 * Use https://fb.me/react-error-boundaries to mask back traces.
 
