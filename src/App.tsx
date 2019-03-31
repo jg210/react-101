@@ -16,10 +16,6 @@ class App extends Component<Props,State> {
         localAuthorityId: null
     };
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="App">
@@ -41,7 +37,7 @@ class App extends Component<Props,State> {
         );
     }
 
-    private handleLocalAuthorityClick = (localAuthorityId: number): void => {
+    handleLocalAuthorityClick = (localAuthorityId: number): void => {
         this.setState({ localAuthorityId });
     }
 

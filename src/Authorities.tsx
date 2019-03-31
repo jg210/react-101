@@ -20,10 +20,6 @@ export class Authorities extends Component<Props,State> {
         localAuthorities: null
     };
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         let dropdown = null;
         if (this.state.localAuthorities === null) {

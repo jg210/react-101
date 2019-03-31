@@ -23,7 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eslint": "eslint src",
+    "eslint": "eslint src/**/*.{ts,tsx,js}",
     "ci": "npm run eslint && CI=true npm run test -- --coverage",
     "eject": "react-scripts eject"
   },

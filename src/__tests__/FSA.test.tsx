@@ -35,9 +35,13 @@ function checkRatingPercentages(
     const ratings = ratingPercentages.map(rating_percentage => rating_percentage.rating);
     expect(ratings).toEqual(ratingsExpected);
     const percentages = ratingPercentages.map(rating_percentage => rating_percentage.percentage);
-    _.zip(percentages, percentagesExpected).forEach(pair => {
-        let [percentage, percentageExpected] = pair;
-        expect(percentage).toBeCloseTo(percentageExpected as number, /*numDigits*/3);
+    _.zip(percentages, percentagesExpected).forEach((pair) => {
+        const percentage: number | undefined = pair[0];
+        const percentageExpected: number | undefined = pair[1];
+        if (percentage === undefined || percentageExpected === undefined) {
+            throw new Error(`percentages: ${percentages} percentagesExpected: ${percentagesExpected}`);
+        }
+        expect(percentage).toBeCloseTo(percentageExpected, /*numDigits*/3);
     });
     expect(percentages.length).toEqual(percentagesExpected.length);
 }

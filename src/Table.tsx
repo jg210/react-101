@@ -28,10 +28,6 @@ export class Table extends Component<Props,State> {
     };
     cancelTokenSource: CancelTokenSource | null = null;
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         if (this.props.localAuthorityId === null) {
             return null;

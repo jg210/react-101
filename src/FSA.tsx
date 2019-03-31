@@ -1,4 +1,4 @@
-import axios, { CancelToken, CancelTokenSource, AxiosRequestConfig } from 'axios';
+import axios, { CancelTokenSource, AxiosRequestConfig } from 'axios';
 
 import _ from 'lodash';
 
