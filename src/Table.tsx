@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import {
     ratingsPercentages,
     fetchEstablishmentsJson
-} from './FSA.js'
+} from './FSA'
 
 const LOADING_STATE = {
     scores: null

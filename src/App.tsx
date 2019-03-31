@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Authorities } from './Authorities.js';
-import { Table } from './Table.js';
+import { Authorities } from './Authorities';
+import { Table } from './Table';
 
 class App extends Component {
 

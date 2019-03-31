@@ -2,7 +2,7 @@ import {
     extractLocalAuthorities,
     formatRating,
     ratingsPercentages
-} from './FSA.js'
+} from './FSA'
 import _ from 'lodash';
 
 // README.md explains how these json files were downloaded.

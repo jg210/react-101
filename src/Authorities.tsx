@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     extractLocalAuthorities,
     fetchLocalAuthoritiesJson
-} from './FSA.js';
+} from './FSA';
 
 // Drop down list that populates itself with list of local authorities.
 export class Authorities extends Component {
