@@ -10,14 +10,14 @@ interface State {
     localAuthorityId: number | null
 }
 
-class App extends Component {
+class App extends Component<Props,State> {
+
+    state: State = {
+        localAuthorityId: null
+    };
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            localAuthorityId: null
-        }
-        this.handleLocalAuthorityClick = this.handleLocalAuthorityClick.bind(this);
     }
 
     render() {
@@ -41,7 +41,7 @@ class App extends Component {
         );
     }
 
-    handleLocalAuthorityClick(localAuthorityId: number): void {
+    private handleLocalAuthorityClick = (localAuthorityId: number): void => {
         this.setState({ localAuthorityId });
     }
 

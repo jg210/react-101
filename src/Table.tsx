@@ -21,14 +21,15 @@ interface State {
 }
 
 // Table showing percentage of establishments with each rating.
-export class Table extends Component {
+export class Table extends Component<Props,State> {
 
-    cancelTokenSource: CancelTokenSource | null;
+    state: State = {
+        ...LOADING_STATE
+    };
+    cancelTokenSource: CancelTokenSource | null = null;
 
     constructor(props: Props) {
         super(props);
-        this.state = {...LOADING_STATE};
-        this.cancelTokenSource = null;
     }
 
     render() {
@@ -60,7 +61,7 @@ export class Table extends Component {
         );
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         const localAuthorityId = this.props.localAuthorityId;
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
@@ -75,7 +76,7 @@ export class Table extends Component {
         this.cancelTokenSource = axios.CancelToken.source()
         fetchEstablishmentsJson(localAuthorityId, this.cancelTokenSource)
             .then(ratingsPercentages)
-            .then(scores => {
+            .then((scores: RatingPercentage[]) => {
                 this.setState({ scores });
                 this.cancelTokenSource = null;
             });
