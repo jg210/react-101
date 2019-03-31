@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Authorities } from './Authorities.js';
-import { Table } from './Table.js';
+import { Authorities } from './Authorities';
+import { Table } from './Table';
 
-class App extends Component {
+interface Props {
+}
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            localAuthorityId: null
-        }
-        this.handleLocalAuthorityClick = this.handleLocalAuthorityClick.bind(this);
-    }
+interface State {
+    localAuthorityId: number | null
+}
+
+class App extends Component<Props,State> {
+
+    state: State = {
+        localAuthorityId: null
+    };
 
     render() {
         return (
@@ -34,7 +37,7 @@ class App extends Component {
         );
     }
 
-    handleLocalAuthorityClick(localAuthorityId) {
+    handleLocalAuthorityClick = (localAuthorityId: number): void => {
         this.setState({ localAuthorityId });
     }
 

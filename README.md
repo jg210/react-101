@@ -1,4 +1,4 @@
-Learning [React](https://reactjs.org/). This app uses react state and props and makes some simple requests to a third-party REST API. There's no flow/typescript type checking or redux etc.
+Learning [React](https://reactjs.org/). This app uses react state and props and makes some simple requests to a third-party REST API. There's no redux etc. Type checking is done using [TypeScript](https://www.typescriptlang.org/).
 
 [![Build Status](https://travis-ci.com/jg210/react-101.svg?branch=master)](https://travis-ci.com/jg210/react-101)
 

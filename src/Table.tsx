@@ -1,24 +1,32 @@
-import axios from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 
 import React, { Component } from 'react';
 
 import {
     ratingsPercentages,
-    fetchEstablishmentsJson
-} from './FSA.js'
+    fetchEstablishmentsJson,
+    RatingPercentage
+} from './FSA'
 
 const LOADING_STATE = {
     scores: null
 }
 
-// Table showing percentage of establishments with each rating.
-export class Table extends Component {
+interface Props {
+    localAuthorityId: number | null;
+}
 
-    constructor(props) {
-        super(props);
-        this.state = {...LOADING_STATE};
-        this.cancelTokenSource = null;
-    }
+interface State {
+    scores: RatingPercentage[] | null
+}
+
+// Table showing percentage of establishments with each rating.
+export class Table extends Component<Props,State> {
+
+    state: State = {
+        ...LOADING_STATE
+    };
+    cancelTokenSource: CancelTokenSource | null = null;
 
     render() {
         if (this.props.localAuthorityId === null) {
@@ -38,7 +46,7 @@ export class Table extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.scores.map((score, i) => (
+                    {this.state.scores.map((score: RatingPercentage, i) => (
                         <tr key={i}>
                             <td>{score.rating}</td>
                             <td>{Math.round(score.percentage)}%</td>
@@ -49,7 +57,7 @@ export class Table extends Component {
         );
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         const localAuthorityId = this.props.localAuthorityId;
         if (localAuthorityId === prevProps.localAuthorityId) {
             return;
@@ -64,7 +72,7 @@ export class Table extends Component {
         this.cancelTokenSource = axios.CancelToken.source()
         fetchEstablishmentsJson(localAuthorityId, this.cancelTokenSource)
             .then(ratingsPercentages)
-            .then(scores => {
+            .then((scores: RatingPercentage[]) => {
                 this.setState({ scores });
                 this.cancelTokenSource = null;
             });

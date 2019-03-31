@@ -1,13 +1,14 @@
 import {
     extractLocalAuthorities,
     formatRating,
-    ratingsPercentages
-} from './FSA.js'
+    ratingsPercentages,
+    RatingPercentage
+} from '../FSA'
 import _ from 'lodash';
 
 // README.md explains how these json files were downloaded.
-const AUTHORITIES_JSON = require('../example_json/authorities.json');
-const ESTABLISHMENTS_JSON = require('../example_json/establishments_23.json');
+const AUTHORITIES_JSON = require('../../example_json/authorities.json');
+const ESTABLISHMENTS_JSON = require('../../example_json/establishments_23.json');
 
 it('extracts local authorities from json', () => {
     const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
@@ -20,18 +21,26 @@ it('extracts local authorities from json', () => {
 
 it('extracts unique local authority ids from json', () => {
     const localAuthorities = extractLocalAuthorities(AUTHORITIES_JSON);
-    let localAuthorityIds = localAuthorities.map(localAuthority => localAuthority.localAuthorityId);
-    localAuthorityIds = new Set(localAuthorityIds);
+    const localAuthorityIds = new Set(
+        localAuthorities.map(localAuthority => localAuthority.localAuthorityId)
+    );
     expect(localAuthorityIds.size).toEqual(localAuthorities.length);
 });
 
-function checkRatingPercentages(ratingPercentages, ratingsExpected, percentagesExpected) {
+function checkRatingPercentages(
+    ratingPercentages: RatingPercentage[],
+    ratingsExpected: string[],
+    percentagesExpected: number[]) {
     expect(ratingsExpected.length).toEqual(percentagesExpected.length);
     const ratings = ratingPercentages.map(rating_percentage => rating_percentage.rating);
     expect(ratings).toEqual(ratingsExpected);
     const percentages = ratingPercentages.map(rating_percentage => rating_percentage.percentage);
-    _.zip(percentages, percentagesExpected).forEach(pair => {
-        let [percentage, percentageExpected] = pair;
+    _.zip(percentages, percentagesExpected).forEach((pair) => {
+        const percentage: number | undefined = pair[0];
+        const percentageExpected: number | undefined = pair[1];
+        if (percentage === undefined || percentageExpected === undefined) {
+            throw new Error(`percentages: ${percentages} percentagesExpected: ${percentagesExpected}`);
+        }
         expect(percentage).toBeCloseTo(percentageExpected, /*numDigits*/3);
     });
     expect(percentages.length).toEqual(percentagesExpected.length);
@@ -137,3 +146,4 @@ it('formats ratings properly', () => {
     expect(formatRating("Exempt")).toEqual("Exempt");
 });
 
+export default undefined

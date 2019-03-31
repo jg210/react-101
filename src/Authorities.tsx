@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import {
     extractLocalAuthorities,
-    fetchLocalAuthoritiesJson
-} from './FSA.js';
+    fetchLocalAuthoritiesJson,
+    LocalAuthority
+} from './FSA';
+
+interface Props {
+    onClick: (localAuthorityId: number) => void
+}
+
+interface State {
+    localAuthorities: LocalAuthority[] | null
+}
 
 // Drop down list that populates itself with list of local authorities.
-export class Authorities extends Component {
+export class Authorities extends Component<Props,State> {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            localAuthorities: null
-        }
-    }
+    state: State = {
+        localAuthorities: null
+    };
 
     render() {
         let dropdown = null;
@@ -20,7 +26,7 @@ export class Authorities extends Component {
             dropdown = <div>loading...</div>
         } else {
             dropdown = <select onClick={this.handleClick.bind(this)}>
-                {this.state.localAuthorities.map((localAuthority, i) =>
+                {this.state.localAuthorities.map((localAuthority: LocalAuthority, i: number) =>
                     <option key={i} value={localAuthority.localAuthorityId}>{localAuthority.name}</option>
                 )}
             </select>
@@ -32,17 +38,17 @@ export class Authorities extends Component {
         );
     }
 
-    handleClick(event) {
-        const target = event.target;
+    handleClick(event: React.FormEvent<HTMLSelectElement>) {
+        const target = event.currentTarget;
         if (target) {
-            this.props.onClick(event.target.value);
+            this.props.onClick(parseInt(target.value));
         }
     }
 
     componentDidMount() {
         fetchLocalAuthoritiesJson()
             .then(extractLocalAuthorities)
-            .then(localAuthorities => this.setState({ localAuthorities }));
+            .then((localAuthorities: LocalAuthority[]) => this.setState({ localAuthorities }));
     }
 
 }
