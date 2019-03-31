@@ -3,9 +3,16 @@ import './App.css';
 import { Authorities } from './Authorities';
 import { Table } from './Table';
 
+interface Props {
+}
+
+interface State {
+    localAuthorityId: number | null
+}
+
 class App extends Component {
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             localAuthorityId: null
@@ -34,7 +41,7 @@ class App extends Component {
         );
     }
 
-    handleLocalAuthorityClick(localAuthorityId) {
+    handleLocalAuthorityClick(localAuthorityId: number): void {
         this.setState({ localAuthorityId });
     }
 

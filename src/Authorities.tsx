@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import {
     extractLocalAuthorities,
-    fetchLocalAuthoritiesJson
+    fetchLocalAuthoritiesJson,
+    LocalAuthority
 } from './FSA';
+
+interface Props {
+}
+
+interface State {
+    localAuthorities: LocalAuthority[]
+}
 
 // Drop down list that populates itself with list of local authorities.
 export class Authorities extends Component {
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             localAuthorities: null

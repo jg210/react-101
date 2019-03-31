@@ -1,20 +1,31 @@
-import axios from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 
 import React, { Component } from 'react';
 
 import {
     ratingsPercentages,
-    fetchEstablishmentsJson
+    fetchEstablishmentsJson,
+    RatingPercentage
 } from './FSA'
 
 const LOADING_STATE = {
     scores: null
 }
 
+interface Props {
+    localAuthorityId: number | null;
+}
+
+interface State {
+    scores: RatingPercentage[] | null
+}
+
 // Table showing percentage of establishments with each rating.
 export class Table extends Component {
 
-    constructor(props) {
+    cancelTokenSource: CancelTokenSource | null;
+
+    constructor(props: Props) {
         super(props);
         this.state = {...LOADING_STATE};
         this.cancelTokenSource = null;
@@ -38,7 +49,7 @@ export class Table extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.scores.map((score, i) => (
+                    {this.state.scores.map((score: RatingPercentage, i) => (
                         <tr key={i}>
                             <td>{score.rating}</td>
                             <td>{Math.round(score.percentage)}%</td>

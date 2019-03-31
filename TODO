@@ -1,3 +1,11 @@
+* TypeScript.
+  - make code build again
+  - tslint
+    - package.json
+    - travis
+    - VSC
+  - don't need @types/jest
+
 * Publish.
   - without https->http proxy server, can only host via http since app connects to http-only FSA API.
     => couldn't use github pages.
@@ -37,8 +45,6 @@
 * Improve visual design.
 
 * Localization.
-
-* TypeScript/flow/PropTypes.
 
 * jest snapshot tests?
 

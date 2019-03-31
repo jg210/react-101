@@ -1,10 +1,22 @@
-import axios from 'axios';
+import axios, { CancelToken, CancelTokenSource, AxiosRequestConfig } from 'axios';
+
+import _ from 'lodash';
 
 const RATINGS_URL = "http://api.ratings.food.gov.uk";
 
+export interface RatingPercentage {
+    rating: string,
+    percentage: number
+}
+
+export interface LocalAuthority {
+    name: string,
+    localAuthorityId: number
+}
+
 // http://api.ratings.food.gov.uk/help
-function fetchFromAPI(url, cancelTokenSource = null) {
-    const config = {
+function fetchFromAPI(url: string, cancelTokenSource: CancelTokenSource | null = null): any {
+    const config: AxiosRequestConfig = {
         headers: {
             'Accept': 'application/json',
             'x-api-version': 2
@@ -22,38 +34,44 @@ export function fetchLocalAuthoritiesJson() {
 }
 
 // http://api.ratings.food.gov.uk/Help/Api/GET-Establishments_name_address_longitude_latitude_maxDistanceLimit_businessTypeId_schemeTypeKey_ratingKey_ratingOperatorKey_localAuthorityId_countryId_sortOptionKey_pageNumber_pageSize
-export function fetchEstablishmentsJson(localAuthorityId, cancelTokenSource) {
-    const url = `${RATINGS_URL}/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId)}&pageSize=0`;
+export function fetchEstablishmentsJson(
+    localAuthorityId: number,
+    cancelTokenSource: CancelTokenSource) {
+    const url = `${RATINGS_URL}/Establishments?localAuthorityId=${encodeURIComponent(localAuthorityId.toString())}&pageSize=0`;
     return fetchFromAPI(url, cancelTokenSource);
 }
 
-// Return unordered Array of {name, localAuthorityId} objects.
-export function extractLocalAuthorities(json) {
-    return json.authorities.map(authority => ({
+export function extractLocalAuthorities(json: any): LocalAuthority[] {
+    return json.authorities.map((authority: {Name: string, LocalAuthorityId: number}) => ({
         name: authority.Name,
         localAuthorityId: authority.LocalAuthorityId
     }));
 }
 
-// Return ordered Array of unrounded { rating, percentage } objects.
-export function ratingsPercentages(establishmentsJson) {
-    const scoreCounts = new Map();
-    let count = 0;
-    establishmentsJson.establishments.forEach(establishment => {
+export function ratingsPercentages(establishmentsJson: any): RatingPercentage[] {
+    const ratingCounts = new Map<string,number>();
+    let totalCount = 0;
+    establishmentsJson.establishments.forEach((establishment: {RatingValue: string}) => {
         const rating = formatRating(establishment.RatingValue);
-        let oldCount = scoreCounts.get(rating);
+        let oldCount = ratingCounts.get(rating);
         if (oldCount === undefined) {
             oldCount = 0;
         }
-        scoreCounts.set(rating, oldCount + 1);
-        count++;
+        ratingCounts.set(rating, oldCount + 1);
+        totalCount++;
     });
-    const ratings = Array.from(scoreCounts.keys()).sort();
-    return ratings.map(rating => ({ rating: rating, percentage: 100 * scoreCounts.get(rating) / count }));
+    const result: RatingPercentage[] = [];
+    ratingCounts.forEach((ratingCount: number, rating: string) => {
+        result.push({
+             rating: rating,
+             percentage: 100 * ratingCount / totalCount
+        });
+    });
+    return _.sortBy(result, "rating");
 }
 
 // Convert "RatingValue" from Establishments API to human-readable String.
-export function formatRating(ratingValue) {
+export function formatRating(ratingValue: string): string {
     if (ratingValue === "AwaitingInspection") {
         return "Awaiting Inspection";
     }
