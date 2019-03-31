@@ -38,10 +38,10 @@ export class Authorities extends Component<Props,State> {
         );
     }
 
-    handleClick(event: any) { // TODO use more specific type.
-        const target = event.target;
+    handleClick(event: React.FormEvent<HTMLSelectElement>) {
+        const target = event.currentTarget;
         if (target) {
-            this.props.onClick(event.target.value);
+            this.props.onClick(parseInt(target.value));
         }
     }
 
