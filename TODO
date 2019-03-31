@@ -1,10 +1,9 @@
 * TypeScript.
-  - make code build again
+  - eslint not finding any files
   - tslint
     - package.json
     - travis
     - VSC
-  - don't need @types/jest
 
 * Publish.
   - without https->http proxy server, can only host via http since app connects to http-only FSA API.

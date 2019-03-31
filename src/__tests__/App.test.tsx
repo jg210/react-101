@@ -12,3 +12,5 @@ it('is run with correct node version', () => {
 //   ReactDOM.render(<App />, div);
 //   ReactDOM.unmountComponentAtNode(div);
 // });
+
+export default undefined
